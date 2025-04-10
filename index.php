@@ -45,14 +45,20 @@
                                         <img src="img/logo.png" alt="Logo" class="img-fluid" style="width: 250px;
                                                                                                     border-radius: 25px 25px 25px 25px;">
                                     </div>
-                                    <form class="user" style="margin-top: 20px;">
+                                    <form action="sistema/BLL/login.php" method="POST" 
+                                        class="user" style="margin-top: 20px;">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="text"
+                                                name="usuario"
+                                                class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Usuario">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input 
+                                                type="password"
+                                                name="password"
+                                                class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Contraseña">
                                         </div>
                                         <div class="form-group">
@@ -61,9 +67,9 @@
                                                 <label class="custom-control-label" for="customCheck">Recuerdame</label>
                                             </div>
                                         </div>
-                                        <a href="dashboard.php" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Ingresar
-                                        </a>
+                                        </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -93,7 +99,37 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script>
+document.getElementById('formLogin').addEventListener('submit', function(e) {
+    e.preventDefault(); // Evita el comportamiento por defecto (recarga)
 
+    const formData = new FormData(this);
+
+    fetch('BLL/login.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json()) // Esperamos JSON de respuesta
+    .then(data => {
+        const mensaje = document.getElementById('mensajeLogin');
+        if (data.success) {
+            mensaje.classList.remove('text-danger');
+            mensaje.classList.add('text-success');
+            mensaje.textContent = 'Login exitoso. Bienvenido ' + data.nombre;
+
+            // Opcional: redirigir luego de 2 segundos
+            // setTimeout(() => window.location.href = 'dashboard.php', 2000);
+        } else {
+            mensaje.classList.remove('text-success');
+            mensaje.classList.add('text-danger');
+            mensaje.textContent = data.mensaje;
+        }
+    })
+    .catch(error => {
+        console.error('Error en la petición:', error);
+    });
+});
+</script>
 </body>
 
 </html>
