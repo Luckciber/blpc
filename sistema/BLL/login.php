@@ -14,11 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../../dashboard.php');
         exit;
     } else {
-
        // echo "NO SE ENCONTRARON RESULTADOS ".$usuario." ".$password ;
         header('Location: ../../index.php');
     }
-
 }
 
 ?>
