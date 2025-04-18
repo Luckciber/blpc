@@ -1,8 +1,8 @@
 
 <?php
-    require_once '../conexion.php';
-    require_once '../INTERFACES/iReportes.php';
-    require_once '../DAO/reportesDAO.php';
+    require_once __DIR__.'\..\conexion.php';
+    require_once __DIR__.'\..\INTERFACES\iReportes.php';
+    require_once __DIR__.'\..\DAO\reportesDAO.php';
 
     class ReportesService implements IReportes{
         private $reportesDao;
