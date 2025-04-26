@@ -17,6 +17,12 @@
         public function ReporteListaMovimientosTodosInventario() {
             return $this->reportesDao->ReporteListaMovimientosTodosInventario();
         }
+        public function ReporteListaMovimientosPorIdMantenciones($mantenciones_corr) {
+            return $this->reportesDao->ReporteListaMovimientosPorIdInventario($mantenciones_corr);
+        }
+        public function ReporteListaMovimientosTodosMantenciones() {
+            return $this->reportesDao->ReporteListaMovimientosTodosInventario();
+        }
     }
 
 ?>
