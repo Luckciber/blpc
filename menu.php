@@ -34,6 +34,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Lista Reportes:</h6>
             <a class="collapse-item" href="tables.html">Todos</a>
+            <a class="collapse-item" href="listaMantenciones.php">Mantenciones</a>
         </div>
     </div>
 </li>
@@ -57,6 +58,7 @@
         </div>
     </div>
 </li>
+
 <!-- Divider -->
 <hr class="sidebar-divider">
 <!-- Heading -->
