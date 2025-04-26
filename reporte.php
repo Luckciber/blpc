@@ -1,6 +1,9 @@
 <?php
 require('vendor/fpdf186/fpdf.php');
-require_once('sistema/conexion.php');
+require_once('sistema/bll/inventario.php');
+$data = obtenerInventario();
+$data = json_decode($data, true);
+
 
 class PDF extends FPDF
 {
@@ -58,11 +61,6 @@ class PDF extends FPDF
         $this->Cell(array_sum($w),0,'','T');
     }
 }
-
-// Obtener datos desde la base de datos
-$query = "SELECT * FROM inventario";
-$stmt = $pdo->query($query);
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Crear PDF
 $pdf = new PDF();
