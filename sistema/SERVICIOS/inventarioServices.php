@@ -17,6 +17,10 @@
         public function getInventarioById($inventario_corr) {
             return $this->inventarioDao->getInventarioById($inventario_corr);
         }
+
+        public function editInventario($inventario_corr, $inventario_nombre, $inventario_descripcion, $inventario_cantidad) {
+            return $this->inventarioDao->editInventario($inventario_corr, $inventario_nombre, $inventario_descripcion, $inventario_cantidad);
+        }
     }
 
 ?>
