@@ -4,7 +4,7 @@ function Conectar(){
     $host = "localhost";
     $user = "root";
     $pass = "";
-    $db= "blpc";
+    $db= "bplc";
     $cnn = mysqli_connect($host, $user, $pass);
     mysqli_select_db($cnn, $db);
     return $cnn;

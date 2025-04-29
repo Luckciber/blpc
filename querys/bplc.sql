@@ -626,7 +626,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario`, `password`, `permiso`) VALUES
-(17107688, 'admin01', 1);
+(17107688, 'admin01', 1),
+(123, 'armando', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
