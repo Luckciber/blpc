@@ -1,5 +1,4 @@
 <?php
-
 function obtenerInventario() {
     require_once __DIR__.'\..\SERVICIOS\inventarioServices.php';
     session_start();
