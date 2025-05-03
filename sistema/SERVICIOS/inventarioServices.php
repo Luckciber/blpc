@@ -22,5 +22,4 @@
             return $this->inventarioDao->editInventario($inventario_corr, $inventario_nombre, $inventario_descripcion, $inventario_cantidad);
         }
     }
-
 ?>

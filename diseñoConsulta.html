@@ -1,0 +1,89 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Datos</title>
+    <link rel="stylesheet" href="css/dConsulta.css">
+</head>
+<body>
+    <div class="container">kbbb
+        <h1>Consulta de Datos</h1>
+        <form action="diseñoListaMostrar.php" method="POST">
+            <label for="producto">Producto:</label>
+            <select id="producto" name="producto" required>
+                <option value="Disponible">Disponible</option>
+                <option value="Inutilizable">Inutilizable</option>
+                <option value="Mantención">Mantención</option>
+                <option value="No Disponible">No Disponible</option>
+                <option value="Prestamo">Préstamo</option>
+                <option value="Todos">Todos</option>
+            </select>
+
+            <label for="tipo_herramienta">Tipo de herramienta:</label>
+            <select id="tipher" name="tipo_herramienta" required>
+                <option value="tipo_herramienta">Tipo de herramienta</option>
+                <option value="man">Herramientas Manuales</option>
+                <option value="ina">Herramientas Inalámbricas</option>
+                <option value="ele">Herramientas Eléctricas</option>
+                <option value="hid">Herramientas hidráulicas</option>
+                <option value="otr">Otras Herramientas</option>
+                <option value="Todas">Todas las Herramientas</option>
+            </select>
+
+            <label for="doc">Tipo de Reporte:</label>
+            <select id="doc" name="tipo_reporte" required>
+                <option value="tiprep">Tipo de Reporte</option>
+                <option value="Excel">Excel .xlsx (no es parte del servicio)</option>
+                <option value="Word">Word .docx (no es parte del servicio)</option>
+                <option value="PDF">PDF .pdf</option>
+            </select>
+
+            <label for="fecha_desde">Desde:</label>
+            <input type="date" id="fecha_desde" name="fecha_desde" required>
+
+            <label for="fecha_hasta">Hasta:</label>
+            <input type="date" id="fecha_hasta" name="fecha_hasta" required>
+
+            <div class="button-container">
+                <button type="submit">Buscar</button>
+                <button type="button" id="limpiar" onclick="limpiarDatos()">Limpiar Datos</button>
+            </div>
+        </form>
+        <div id="resultados">
+            <!-- Aquí se mostrarán los resultados -->
+        </div>
+    </div>
+    <script>
+        document.getElementById('fecha_desde').addEventListener('change', cargarProductos);
+        document.getElementById('fecha_hasta').addEventListener('change', cargarProductos);
+
+        function cargarProductos() {
+            const fecha_desde = document.getElementById('fecha_desde').value;
+            const fecha_hasta = document.getElementById('fecha_hasta').value;
+
+            if (fecha_desde && fecha_hasta) {
+                fetch(`cargarProductos.php?fecha_desde=${fecha_desde}&fecha_hasta=${fecha_hasta}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const selectProducto = document.getElementById('producto');
+                        selectProducto.innerHTML = ''; // Limpiar opciones anteriores
+                        data.forEach(producto => {
+                            const option = document.createElement('option');
+                            option.value = producto.inventario_corr;
+                            option.text = producto.descripcion;
+                            selectProducto.add(option);
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar los productos:', error));
+            }
+        }
+
+        function limpiarDatos() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
