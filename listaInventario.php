@@ -258,11 +258,23 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Inventario</h1>
+                   
                     <p class="mb-4">Listado actual del inventario registrado con su actual stock</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Inventario</h6>
+                            <div class='row'>
+                                <div class='col-md-6'>
+                                    <h6 class="m-0 font-weight-bold text-primary">Inventario</h6>
+                                </div>
+                                <div class='col-md-6 text-right'>
+                                    <form action="reporteInventario.php" method="post" target="_blank">
+                                        <button class="btn btn-warning"><i class='fa fa-print'></i> Exportar inventario</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
