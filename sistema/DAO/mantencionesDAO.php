@@ -8,7 +8,19 @@
         }
 
         public function getMantenciones(){
-            $sql = "SELECT * FROM movimientos WHERE tipo_movimiento = 3";
+            $sql = "SELECT 
+                        movimientos.mantencion_corr as mantencion_corr,
+                        inventario.inventario_corr as id_inventario,
+                        inventario.descripcion as nombre_herramienta,
+                        movimientos.fecha_movimiento as fecha_movimiento
+                    FROM
+                        inventario,
+                        movimientos, 
+                        tipo_movimiento
+                    WHERE
+                        movimientos.id_inventario = inventario.inventario_corr AND
+                        movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
+                        tipo_movimiento = 3;";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

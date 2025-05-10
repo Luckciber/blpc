@@ -263,8 +263,8 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>ID Inventario</th>
+                                            <th>Nro Mant.</th>
+                                            <th>Inventario</th>
                                             <th>Fecha inicio</th>
                                             <th>Opciones</th>
                                         </tr>
@@ -278,7 +278,7 @@
                                                 $htmlFilaTabla= "
                                                     <tr>
                                                         <td>".$datos->mantencion_corr."</td>
-                                                        <td>".$datos->id_inventario."</td>
+                                                        <td>".$datos->nombre_herramienta."</td>
                                                         <td>".$datos->fecha_movimiento."</td>
                                                         <td>
                                                             <button class='btn btn-success'><i class='fa fa-box'></i> Realizar Pedido</button>
