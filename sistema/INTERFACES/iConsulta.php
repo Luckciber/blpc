@@ -1,8 +1,8 @@
 <?php
 
     interface IConsulta{
-//      public function ReporteListaMovimientosPorIdInventario($id_inventario);
-//      public function ReporteListaMovimientosTodosInventario();
+      public function getConsulta();
+      public function getConsultaById($consulta_corr);
     }
 
 ?>

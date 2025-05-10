@@ -27,8 +27,12 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Lista Reportes:</h6>
             <a class="collapse-item" href="diseñoConsulta.html">Consulta</a>
+            <a class="collapse-item" href="disenoConsulta1.php">Consulta1</a>
             <a class="collapse-item" href="tables.html">Todos</a>
             <a class="collapse-item" href="listaMantenciones.php">Mantenciones</a>
+            <a class="collapse-item" href="stockInventario.php">Stock de Inventario</a>
+            <a class="collapse-item" href="repListarmantenciones.php">Lista Mantenciones</a>
+            <a class="collapse-item" href="stockProductos.php">Lista Stock Productos</a>
         </div>
     </div>
 </li>

@@ -1,13 +1,13 @@
 <?php
 
-    class ConsultaDao{
+    class ConsultaDAO{
         private $pdo;
 
         public function __construct($pdo) {
             $this->pdo = $pdo;
         }
 
-      public function ReporteListaMovimientosPorIdInventario($id_iconsulta) {
+      public function getConsulta() {
             $sql = "SELECT 
                         `mantencion_corr`, 
                         `id_inventario`, 
@@ -18,7 +18,8 @@
                     FROM 
                         movimientos,
                         inventario,
-                        tipo_movimiento
+                        tipo_movimiento,
+                        prestamo
                     WHERE 
                         movimientos.id_inventario =inventario.inventario_corr AND
                         movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
@@ -30,24 +31,12 @@
 
         }
 
-     public function ReporteListaMovimientosTodosInventario() {
-            $sql = "SELECT 
-                        `mantencion_corr`, 
-                        `id_inventario`, 
-                        `fecha_movimiento`, 
-                        `tipo_movimiento`,
-                        inventario.descripcion,
-                        tipo_movimiento.descripcion
-                    FROM 
-                        movimientos,
-                        inventario,
-                        tipo_movimiento
-                    WHERE 
-                        movimientos.id_inventario =inventario.inventario_corr AND
-                        movimientos.tipo_movimiento = tipo_movimiento.tipo_corr";
+        public function getConsultaById($consulta_corr){
+            $sql = "SELECT * FROM movimientos WHERE mantencion_corr = :mantencion_corr";
             $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':mantencion_corr', $consulta_corr, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os resultados como um array associativo
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
     }
 
