@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 11-04-2025 a las 23:12:59
--- Versión del servidor: 8.0.31
--- Versión de PHP: 8.0.26
+-- Tiempo de generación: 07-05-2025 a las 03:37:45
+-- Versión del servidor: 9.1.0
+-- Versión de PHP: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `rut_cliente` int NOT NULL,
-  `nombre_cliente` varchar(200) COLLATE utf8mb3_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  `nombre_cliente` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
@@ -148,10 +148,10 @@ INSERT INTO `cliente` (`rut_cliente`, `nombre_cliente`) VALUES
 DROP TABLE IF EXISTS `inventario`;
 CREATE TABLE IF NOT EXISTS `inventario` (
   `inventario_corr` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(500) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `descripcion` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `stock_actual` int NOT NULL,
   PRIMARY KEY (`inventario_corr`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `inventario`
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `movimientos` (
   `fecha_movimiento` date NOT NULL,
   `tipo_movimiento` int NOT NULL,
   PRIMARY KEY (`mantencion_corr`)
-) ENGINE=MyISAM AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `movimientos`
@@ -375,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `prestamo` (
   `inventario_corr` int NOT NULL,
   `cantidad` int NOT NULL,
   PRIMARY KEY (`prestamo_corr`)
-) ENGINE=MyISAM AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `prestamo`
@@ -592,9 +592,9 @@ INSERT INTO `prestamo` (`prestamo_corr`, `rut_cliente`, `fecha_prestamo_desde`, 
 DROP TABLE IF EXISTS `tipo_movimiento`;
 CREATE TABLE IF NOT EXISTS `tipo_movimiento` (
   `tipo_corr` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(50) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `descripcion` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`tipo_corr`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_movimiento`
@@ -616,18 +616,18 @@ INSERT INTO `tipo_movimiento` (`tipo_corr`, `descripcion`) VALUES
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `usuario` int NOT NULL AUTO_INCREMENT,
-  `password` varchar(16) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `password` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `permiso` int NOT NULL,
   PRIMARY KEY (`usuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=17107689 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17107689 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`usuario`, `password`, `permiso`) VALUES
-(17107688, 'admin01', 1),
-(123, 'armando', 2);
+(123, 'armando', 2),
+(17107688, 'admin01', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
