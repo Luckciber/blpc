@@ -305,7 +305,7 @@
                                                         <td>".$datos->nombre_herramienta."</td>
                                                         <td>".$datos->id_inventario."</td>
                                                         <td>".$datos->mantencion_corr."</td>                                                        
-                                                        <td>".$datos->es_nuevo ? 'Nuevo' : 'Antiguo'"</td>
+                                                        <td>".($datos->es_nuevo ? 'Nuevo' : 'Antiguo')."</td>
                                                         <td>
                                                             <button class='btn btn-success'><i class='fa fa-cog'></i> Generar Mantención</button>
                                                             <button class='btn btn-primary'><i class='fa fa-search' ></i> Ver Movimiento</button>
