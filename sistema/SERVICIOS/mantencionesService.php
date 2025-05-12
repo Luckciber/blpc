@@ -22,6 +22,10 @@
         public function getMantencionesById($mantenciones_corr) {
             return $this->mantencionesDAO->getMantencionesById($mantenciones_corr);
         }
+
+        public function generarMantencion($inventario_corr) {
+            return $this->mantencionesDAO->generarMantencion($inventario_corr);
+        }
     }
 
 ?>

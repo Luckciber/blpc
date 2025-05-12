@@ -21,5 +21,8 @@
         public function editInventario($inventario_corr, $inventario_nombre, $inventario_descripcion, $inventario_cantidad) {
             return $this->inventarioDao->editInventario($inventario_corr, $inventario_nombre, $inventario_descripcion, $inventario_cantidad);
         }
+        public function reducirInventario($inventario_corr) {
+            return $this->inventarioDao->reducirInventario($inventario_corr);
+        }
     }
 ?>

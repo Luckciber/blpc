@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     class ConsultaDAO{
         private $pdo;
@@ -7,7 +7,7 @@
             $this->pdo = $pdo;
         }
 
-      public function getConsulta() {
+      public function getConsulta($id_invetario) {
             $sql = "SELECT 
                         `mantencion_corr`, 
                         `id_inventario`, 
