@@ -1,5 +1,5 @@
 <?php
-require_once_DIR_.'\..\conexion.php';
+require_once __DIR__.'\..\conexion.php';
 
     class MantencionesDAO{
         private $pdo;

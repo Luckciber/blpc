@@ -28,7 +28,7 @@
             $stmt->bindParam(':inventario_corr', $inventario_corr, PDO::PARAM_INT);
             $stmt->bindParam(':inventario_nombre', $inventario_nombre, PDO::PARAM_STR);
             $stmt->bindParam(':inventario_descripcion', $inventario_descripcion, PDO::PARAM_STR);
-            $stmt->bindParam(':inventario_precio', $inventario_precio, PDO::PARAM_STR);
+            $stmt->bindParam(':inventario_cantidad', $inventario_cantidad, PDO::PARAM_STR);
             return $stmt->execute();
         }
     }
