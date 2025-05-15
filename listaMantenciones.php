@@ -1,8 +1,8 @@
 <?php
-    require_once 'sistema/BLL/mantenciones.php';
-    $listaMantencion = obtenerMantenciones();
-    //$data = getMantenciones();
-    //print_r($datos);
+require_once 'sistema/BLL/mantenciones.php';
+$listaMantencion = obtenerMantenciones();
+//$data = getMantenciones();
+//print_r($datos);
 ?>
 
 
@@ -38,9 +38,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-    <?php
+        <?php
         require_once 'menu.php';
-    ?>
+        ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -55,7 +55,7 @@
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
-</form>
+                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -261,7 +261,7 @@
                                 </div>
 
                             </div>
-                        
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -284,18 +284,47 @@
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                            // en este punto se muestran los datos del inventario
-                                            // invocando a la listaInventario decodificando la respuesta json 
-                                            //es posible recorrer la lista de objetos y mostrar los datos
-                                            foreach(json_decode($listaMantencion) as $datos){
-                                                $htmlFilaTabla= "
+                                        // en este punto se muestran los datos del inventario
+                                        // invocando a la listaInventario decodificando la respuesta json 
+                                        //es posible recorrer la lista de objetos y mostrar los datos
+                                        foreach (json_decode($listaMantencion) as $datos) {
+                                            $htmlFilaTabla = "
                                                     <tr>
-                                                        <td>".$datos->mantencion_corr."</td>
-                                                        <td>".$datos->nombre_herramienta."</td>
-                                                        <td>".$datos->fecha_movimiento."</td>
+                                                        <td>" . $datos->mantencion_corr . "</td>
+                                                        <td>" . $datos->nombre_herramienta . "</td>
+                                                        <td>" . $datos->fecha_movimiento . "</td>
                                                         <td>
-                                                            <button class='btn btn-success'><i class='fa fa-box'></i> Realizar Pedido</button>
-                                                            <button class='btn btn-primary'><i class='fa fa-file-alt' ></i> Generar Reporte</button>
+                                                            <div class='row'>
+                                                                <div class='col-lg-2'>
+                                                                <form action='sistema/BLL/inventario.php' method='post'>
+                                                                    <button 
+                                                                        class='btn btn-success'
+                                                                        data-toggle='tooltip' 
+                                                                        data-placement='top' 
+                                                                        title='Producto reingresado'
+                                                                        type='submit'
+                                                                        name='producto_reingresado'
+                                                                        value='" . $datos->id_inventario . "'>
+                                                                        <i class='fa fa-minus-circle'></i>
+                                                                    </button>
+                                                                </form>
+                                                                </div>
+                                                                <div class='col-lg-2'>
+                                                                <form action='sistema/BLL/mantenciones.php' method='post'>
+                                                                    <button 
+                                                                        class='btn btn-danger'
+                                                                        data-toggle='tooltip' 
+                                                                        data-placement='top' 
+                                                                        title='Producto inutilizable'
+                                                                        name='boton_desechar'
+                                                                        value='" . $datos->id_inventario . "'
+                                                                        type='submit'
+                                                                        >
+                                                                        <i class='fa fa-cog'></i>
+                                                                    </button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 ";
