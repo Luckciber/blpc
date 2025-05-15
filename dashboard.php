@@ -404,8 +404,6 @@ foreach($data as $valores){
     array_push($fechasGrafico, $valores->fecha_movimiento);
     array_push($datosGrafico, $valores->MANTENCIONES_AGENDADAS);
 }
-echo json_encode($fechasGrafico);
-echo json_encode($datosGrafico);
 ?>
 
     <!-- Page level custom scripts -->
