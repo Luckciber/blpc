@@ -1,6 +1,10 @@
 <?php
     require_once 'sistema/BLL/inventario.php';
     $listaInventario = obtenerInventario();
+    if (isset($_SESSION['alerta_modal'])) {
+        echo $_SESSION['alerta_modal'];
+        unset($_SESSION['alerta_modal']); // Mostrar solo una vez
+    }
     //$data = getInventario();
     //print_r($datos);
 ?>
@@ -293,8 +297,48 @@
                                                         <td>".$datos->descripcion."</td>
                                                         <td>".$datos->stock_actual."</td>
                                                         <td>
-                                                            <button class='btn btn-success'><i class='fa fa-cog'></i> Generar Mantención</button>
-                                                            <button class='btn btn-primary'><i class='fa fa-search' ></i> Ver Movimiento</button>
+                                                            <div class='row'>
+                                                                <div class='col-lg-2'>
+                                                                <form action='sistema/BLL/inventario.php' method='post'>
+                                                                    <button 
+                                                                        class='btn btn-danger'
+                                                                        data-toggle='tooltip' 
+                                                                        data-placement='top' 
+                                                                        title='Producto Inutilizable'
+                                                                        type='submit'
+                                                                        name='eliminar_producto'
+                                                                        value='".$datos->inventario_corr."'>
+                                                                        <i class='fa fa-minus-circle'></i>
+                                                                    </button>
+                                                                </form>
+                                                                </div>
+                                                                <div class='col-lg-2'>
+                                                                <form action='sistema/BLL/mantenciones.php' method='post'>
+                                                                    <button 
+                                                                        class='btn btn-success'
+                                                                        data-toggle='tooltip' 
+                                                                        data-placement='top' 
+                                                                        title='Generar Mantención'
+                                                                        name='generar_mantencion'
+                                                                        value='".$datos->inventario_corr."'
+                                                                        type='submit'
+                                                                        >
+                                                                        <i class='fa fa-cog'></i>
+                                                                    </button>
+                                                                </form>
+                                                                </div>
+                                                                <div class='col-lg-2'>
+                                                                <form>
+                                                                    <button 
+                                                                        class='btn btn-primary'
+                                                                        data-toggle='tooltip' 
+                                                                        data-placement='top' 
+                                                                        title='Historial de Producto'>
+                                                                        <i class='fa fa-search'></i>
+                                                                    </button>
+                                                                </form>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 ";

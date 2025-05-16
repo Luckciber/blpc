@@ -1,6 +1,6 @@
 <?php
     require_once 'sistema/BLL/consulta.php';
-    $listaConsulta = obtenerConsulta();
+    $listaConsulta = obtenerConsulta(3);
     //$data = getConsulta();
     //print_r($datos);
 ?>
@@ -297,6 +297,20 @@
                                             <button type="button" id="limpiar" class="btn btn-secondary" onclick="limpiarDatos()">Limpiar Datos</button>
                                         </div>
 
+                                        <div class='row'>
+                                            <div class='col-sm-12 mt-5'>
+ <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Tipo Herr.</th>
+                                            <th>Desde</th>
+                                            <th>Hasta</th>
+                                            <th>Fecha Movimiento</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
                                         <?php
                                             // en este punto se muestran los datos del inventario
                                             // invocando a la listaInventario decodificando la respuesta json 
@@ -306,18 +320,20 @@
                                                     <tr>                                                        
                                                         <td>".$datos->nombre_herramienta."</td>
                                                         <td>".$datos->tipo_herramienta."</td>
-                                                        <td>".$datos->fecha_prestamo_desde."</td>
-                                                        <td>".$datos->fecha_prestamo_hasta."</td>
-                                                        <td>".$datos->fecha_movimiento."</td>
-                                                        <td>
-                                                            <button class='btn btn-success'><i class='fa fa-box'></i> Realizar Pedido</button>
-                                                            <button class='btn btn-primary'><i class='fa fa-file-alt' ></i> Generar Reporte</button>
-                                                        </td>
+                                                        <td></td>
+                                                        <td>".""."</td>
+                                                        <td >".$datos->fecha_movimiento."</td>
                                                     </tr>
                                                 ";
                                                 echo $htmlFilaTabla;
                                             }
                                         ?>
+
+                                    </tbody>
+                                </table>
+                                            </div>
+                                        </div>
+
                                     </form>
                                     <div id="resultados">
                                         <!-- Aquí se mostrarán los resultados -->

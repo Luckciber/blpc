@@ -1,10 +1,10 @@
 <?php
 
-function obtenerConsulta() {
+function obtenerConsulta($id_inventario) {
     require_once __DIR__.'\..\SERVICIOS\consultaService.php';
     session_start();
     $consultaService = new consultaService($pdo);
-    $consulta = $consultaService->getConsulta(); /*o inventario?*/
+    $consulta = $consultaService->getConsulta($id_inventario); /*o inventario?*/
     
     if ($consulta) {
         // Aquí puedes procesar los datos del inventario y mostrarlos en la vista

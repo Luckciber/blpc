@@ -9,12 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
     $loginService = new LoginService($pdo);
     $validarUsuario = $loginService->login($usuario, $password);
-
     if ($validarUsuario) {
+        $_SESSION['nombre_usuario'] = $validarUsuario['nombre'];
         header('Location: ../../dashboard.php');
         exit;
     } else {
-       // echo "NO SE ENCONTRARON RESULTADOS ".$usuario." ".$password ;
+        // echo "NO SE ENCONTRARON RESULTADOS ".$usuario." ".$password ;
         header('Location: ../../index.php');
     }
 }

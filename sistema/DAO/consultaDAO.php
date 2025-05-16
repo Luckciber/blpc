@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     class ConsultaDAO{
         private $pdo;
@@ -7,14 +7,14 @@
             $this->pdo = $pdo;
         }
 
-        public function getConsulta() {
+        public function getConsulta($id_inventario) {
             $sql = "SELECT 
                         `mantencion_corr`, 
                         `id_inventario`, 
                         `fecha_movimiento`, 
                         `tipo_movimiento`,
-                        inventario.descripcion,
-                        tipo_movimiento.descripcion
+                        inventario.descripcion AS nombre_herramienta,
+                        tipo_movimiento.descripcion AS tipo_herramienta
                     FROM 
                         movimientos,
                         inventario,
@@ -25,7 +25,7 @@
                         movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
                         id_inventario = :id_inventario";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':id_inventario', $id_inventario );
+            $stmt->bindValue(':id_inventario', $id_invenntario );
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os resultados como um array associativo
 

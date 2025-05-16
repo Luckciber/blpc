@@ -57,6 +57,14 @@ require_once __DIR__.'\..\conexion.php';
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
+        
+        function generarMantencion($inventario_corr){
+            $sql = "INSERT INTO movimientos (id_inventario, tipo_movimiento, fecha_movimiento) VALUES (:id_inventario, 3, NOW())";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id_inventario', $inventario_corr, PDO::PARAM_INT);
+            return $stmt->execute();
+        }
     }
+
 ?>
 
