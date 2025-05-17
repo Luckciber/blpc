@@ -296,21 +296,21 @@ $listaMantencion = obtenerMantenciones();
                                                                 <div class='col-lg-2'>
                                                                 <form action='sistema/BLL/inventario.php' method='post'>
                                                                     <button 
-                                                                        class='btn btn-success'
+                                                                        class='btn btn-danger'
                                                                         data-toggle='tooltip' 
                                                                         data-placement='top' 
                                                                         title='Producto reingresado'
                                                                         type='submit'
                                                                         name='producto_reingresado'
                                                                         value='" . $datos->id_inventario . "'>
-                                                                        <i class='fa fa-plus-circle'></i>
+                                                                        <i class='fa fa-trash'></i>
                                                                     </button>
                                                                 </form>
                                                                 </div>
                                                                 <div class='col-lg-2'>
                                                                 <form action='sistema/BLL/mantenciones.php' method='post'>
                                                                     <button 
-                                                                        class='btn btn-danger'
+                                                                        class='btn btn-success'
                                                                         data-toggle='tooltip' 
                                                                         data-placement='top' 
                                                                         title='Producto inutilizable'
@@ -318,7 +318,7 @@ $listaMantencion = obtenerMantenciones();
                                                                         value='" . $datos->id_inventario . "'
                                                                         type='submit'
                                                                         >
-                                                                        <i class='fa fa-trash'></i>
+                                                                        <i class='fa fa-plus-circle'></i>
                                                                     </button>
                                                                 </form>
                                                                 </div>

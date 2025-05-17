@@ -8,6 +8,23 @@
         }
 
         public function getConsulta($id_inventario) {
+            /*$sql = "SELECT 
+                        `mantencion_corr`, 
+                        `id_inventario`, 
+                        `fecha_movimiento`, 
+                        `tipo_movimiento`,
+                        inventario.descripcion AS nombre_herramienta,
+                        tipo_movimiento.descripcion AS tipo_herramienta
+                    FROM 
+                        movimientos,
+                        inventario,
+                        tipo_movimiento,
+                        prestamo
+                    WHERE 
+                        movimientos.id_inventario =inventario.inventario_corr AND
+                        movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
+                        id_inventario = :id_inventario";*/
+
             $sql = "SELECT 
                         `mantencion_corr`, 
                         `id_inventario`, 
@@ -23,6 +40,7 @@
                     WHERE 
                         movimientos.id_inventario =inventario.inventario_corr AND
                         movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
+                        prestamo.inventario_corr = inventario.inventario_corr  AND
                         id_inventario = :id_inventario";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':id_inventario', $id_inventario, PDO::PARAM_INT);

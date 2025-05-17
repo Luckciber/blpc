@@ -1,6 +1,14 @@
 <?php
     require_once 'sistema/BLL/consulta.php';
-    $listaConsulta = obtenerConsulta(3);
+    require_once 'sistema/BLL/mantenciones.php';
+    if(isset($_SESSION['refrescar_mantenciones'])) {
+        $listaConsulta = $_SESSION['refrescar_mantenciones'];
+        print_r(json_decode($listaConsulta));
+    }else{
+        $listaConsulta = obtenerConsulta(3);
+        print_r(json_decode($listaConsulta));
+    }
+    $listatipoMantencion = json_decode(listarTipoMantencion());
     //$data = getConsulta();
     //print_r($datos);
 ?>
@@ -239,42 +247,19 @@
                             <div class="table-responsive">
                                 <div class="form-container">
                                     <h1>Filtro de reporte</h1>
-                                    <form id="formulario-reporte" action="diseñoListaMostrar.php" method="POST">
+                                    <form id="formulario-reporte" action="sistema/BLL/mantenciones.php" method="POST">
                                         <div class="form-group row">
-                                            <label for="producto" class="col-sm-2 col-form-label">Producto:</label>
+                                            <label for="producto" class="col-sm-2 col-form-label">Tipo Movimiento:</label>
                                             <div class="col-sm-10">
                                                 <select id="producto" name="producto" class="form-control" required>
-                                                    <option value="Disponible">Disponible</option>
-                                                    <option value="Inutilizable">Inutilizable</option>
-                                                    <option value="Mantención">Mantención</option>
-                                                    <option value="No Disponible">No Disponible</option>
-                                                    <option value="Prestamo">Préstamo</option>
-                                                    <option value="Todos">Todos</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="tipo_herramienta" class="col-sm-2 col-form-label">Tipo de herramienta:</label>
-                                            <div class="col-sm-10">
-                                                <select id="tipher" name="tipo_herramienta" class="form-control" required>
-                                                    <option value="tipo_herramienta">Tipo de herramienta</option>
-                                                    <option value="man">Herramientas Manuales</option>
-                                                    <option value="ina">Herramientas Inalámbricas</option>
-                                                    <option value="ele">Herramientas Eléctricas</option>
-                                                    <option value="hid">Herramientas hidráulicas</option>
-                                                    <option value="otr">Otras Herramientas</option>
-                                                    <option value="Todas">Todas las Herramientas</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="doc" class="col-sm-2 col-form-label">Tipo de Reporte:</label>
-                                            <div class="col-sm-10">
-                                                <select id="doc" name="tipo_reporte" class="form-control" required>
-                                                    <option value="tiprep">Tipo de Reporte</option>
-                                                    <option value="Excel">Excel .xlsx (no es parte del servicio)</option>
-                                                    <option value="Word">Word .docx (no es parte del servicio)</option>
-                                                    <option value="PDF">PDF .pdf</option>
+                                                    <option value="0">Todos</option>
+                                                    <?php
+                                                        
+                                                        foreach($listatipoMantencion as $$tipo) {
+                                                            echo '<option value="'.$tipo->tipo_corr.'">'.$$tipo->descripcion.'</option>';
+                                                        }
+                                                        
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -291,10 +276,10 @@
                                             </div>
                                         </div>
                                         <div class="button-container">
-                                            <button type="submit" class="btn btn-primary">Buscar</button>
+                                            <button type="submit" class="btn btn-primary" name="filtrar_tabla">Buscar</button>
                                             <button type="button" id="limpiar" class="btn btn-secondary" onclick="limpiarDatos()">Limpiar Datos</button>
                                         </div>
-
+                                    </form>
                                         <div class='row'>
                                             <div class='col-sm-12 mt-5'>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -302,8 +287,6 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Tipo Herr.</th>
-                                            <th>Desde</th>
-                                            <th>Hasta</th>
                                             <th>Fecha Movimiento</th>
                                         </tr>
                                     </thead>
@@ -313,13 +296,13 @@
                                             // en este punto se muestran los datos del inventario
                                             // invocando a la listaInventario decodificando la respuesta json 
                                             //es posible recorrer la lista de objetos y mostrar los datos
+
+
                                             foreach(json_decode($listaConsulta) as $datos){
                                                 $htmlFilaTabla= "
                                                     <tr>                                                        
                                                         <td>".$datos->nombre_herramienta."</td>
                                                         <td>".$datos->tipo_herramienta."</td>
-                                                        <td></td>
-                                                        <td>".""."</td>
                                                         <td >".$datos->fecha_movimiento."</td>
                                                     </tr>
                                                 ";

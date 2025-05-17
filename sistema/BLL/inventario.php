@@ -1,9 +1,9 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['eliminar_producto'])) {
-        $idProducto = $_POST['eliminar_producto']; 
-        productoDefectuoso($idProducto);
+    if (isset($_POST['producto_reingresado'])) {
+        $idProducto = $_POST['producto_reingresado']; 
+        productoDefectuoso(idProducto: $idProducto);
         exit;
     }
 }

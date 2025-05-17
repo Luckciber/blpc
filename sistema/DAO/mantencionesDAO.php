@@ -27,6 +27,30 @@ require_once __DIR__.'\..\conexion.php';
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+
+        public function getMantencionesPorFechas($fecha_desde, $fecha_hasta){
+            $sql = "SELECT 
+                        movimientos.mantencion_corr as mantencion_corr,
+                        inventario.inventario_corr as id_inventario,
+                        inventario.descripcion as nombre_herramienta,
+                        movimientos.fecha_movimiento as fecha_movimiento,
+                        tipo_movimiento.descripcion AS tipo_herramienta
+                    FROM
+                        inventario,
+                        movimientos, 
+                        tipo_movimiento
+                    WHERE
+                        movimientos.id_inventario = inventario.inventario_corr AND
+                        movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
+                        movimientos.fecha_movimiento BETWEEN :fecha_desde AND :fecha_hasta AND
+                        tipo_movimiento = 3;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':fecha_desde', $fecha_desde, PDO::PARAM_INT);
+            $stmt->bindParam(':fecha_hasta', $fecha_hasta, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     // Nueva función para obtener mantenciones con el estado
     public function getMantencionesConEstado(){
         $sql = "SELECT
@@ -68,7 +92,6 @@ require_once __DIR__.'\..\conexion.php';
         public function botonesFuncion($inventario_corr){
             try {
                 $this->pdo->beginTransaction();
-
                 $sql = "UPDATE mantenciones SET stock_actual = stock_actual - 1 WHERE inventario_corr = :inventario_corr";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->bindParam(':inventario_corr', $inventario_corr, PDO::PARAM_INT);
@@ -91,7 +114,20 @@ require_once __DIR__.'\..\conexion.php';
                 throw $e;
             }
         }
+
+        public function listarTipoMantencion(){
+            try{
+                $sql = "SELECT * FROM `tipo_movimiento`";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }catch(Exception $e){
+                return $e->getMessage();
+            }
     }
+
+    }
+
 
 ?>
 

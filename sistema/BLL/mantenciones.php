@@ -6,6 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         generarMantencion($idProducto);
         exit;
     }
+    if(isset($_POST['filtrar_tabla'])){
+        obtenerMantencionesPorFecha($_POST['fecha_desde'], $_POST['fecha_hasta']);
+    }
 }
 
 function generarMantencion($idProducto) {
@@ -80,10 +83,25 @@ function obtenerMantenciones() {
     }
 }
 
+function obtenerMantencionesPorFecha($fecha_desde, $fecha_hasta) {
+    require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
+    session_start();
+    $mantencionesService = new MantencionesService($pdo);
+    $mantenciones = $mantencionesService->getMantencionesPorFechas($fecha_desde, $fecha_hasta);
+    
+    if ($mantenciones) {
+        // Aquí puedes procesar los datos del inventario y mostrarlos en la vista
+        // Por ejemplo, podrías convertirlo a JSON o renderizarlo en una tabla HTML
+        $_SESSION['refrescar_mantenciones'] = json_encode($mantenciones);
+    } else {
+        $_SESSION['refrescar_mantenciones'] = "<tr>No se encontraron datos.</tr>";
+    }
+    header('Location: ../../disenoConsulta1.php');
+}
+
 // Nueva función para obtener mantenciones con el estado
 function obtenerMantencionesConEstado() {
     require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
-require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
     session_start();
     $mantencionesService = new MantencionesService($pdo);
     $mantenciones = $mantencionesService->getMantencionesConEstado();
@@ -92,6 +110,18 @@ require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
         return json_encode($mantenciones);
     } else {
         return json_encode(array("error" => "No se encontraron resultados."));
+    }
+}
+
+function listarTipoMantencion(){
+    require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
+    include __DIR__.'/../conexion.php';
+    $mantencionesService = new MantencionesService($pdo);
+    $listarTipo = $mantencionesService->listarTipoMantencion();
+    if ($listarTipo) {
+        return json_encode($listarTipo);
+    } else {
+        return json_encode(array('error'=> 'error'));
     }
 }
 

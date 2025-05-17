@@ -26,6 +26,14 @@
         public function generarMantencion($inventario_corr) {
             return $this->mantencionesDAO->generarMantencion($inventario_corr);
         }
+
+        public function listarTipoMantencion(){
+            return $this->mantencionesDAO->listarTipoMantencion();
+        }
+        
+        public function getMantencionesPorFechas($fecha_desde, $fecha_hasta){
+            return $this->mantencionesDAO->getMantencionesPorFechas($fecha_desde, $fecha_hasta);
+        }
     }
 
 ?>
