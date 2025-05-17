@@ -203,14 +203,12 @@ $listaMantencion = obtenerMantenciones();
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
+                        <?php
+                            require_once 'infolog.php';
+                        ?>
+
+                    </ul>
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -255,7 +253,7 @@ $listaMantencion = obtenerMantenciones();
                                     <h6 class="m-0 font-weight-bold text-primary">Mantenciones</h6>
                                 </div>
                                 <div class='col-md-6 text-right'>
-                                    <form action="reporteInventario.php" method="post" target="_blank">
+                                    <form action="reporteMantenciones.php" method="post" target="_blank">
                                         <button class="btn btn-warning"><i class='fa fa-print'></i> Exportar Mantenciones</button>
                                     </form>
                                 </div>
