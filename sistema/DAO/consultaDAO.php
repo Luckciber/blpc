@@ -25,7 +25,7 @@
                         movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
                         id_inventario = :id_inventario";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':id_inventario', $id_invenntario );
+            $stmt->bindValue(':id_inventario', $id_inventario, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os resultados como um array associativo
 

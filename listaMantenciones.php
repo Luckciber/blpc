@@ -305,7 +305,7 @@ $listaMantencion = obtenerMantenciones();
                                                                         type='submit'
                                                                         name='producto_reingresado'
                                                                         value='" . $datos->id_inventario . "'>
-                                                                        <i class='fa fa-minus-circle'></i>
+                                                                        <i class='fa fa-plus-circle'></i>
                                                                     </button>
                                                                 </form>
                                                                 </div>
@@ -320,7 +320,7 @@ $listaMantencion = obtenerMantenciones();
                                                                         value='" . $datos->id_inventario . "'
                                                                         type='submit'
                                                                         >
-                                                                        <i class='fa fa-cog'></i>
+                                                                        <i class='fa fa-trash'></i>
                                                                     </button>
                                                                 </form>
                                                                 </div>

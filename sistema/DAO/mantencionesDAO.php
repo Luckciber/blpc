@@ -64,6 +64,33 @@ require_once __DIR__.'\..\conexion.php';
             $stmt->bindParam(':id_inventario', $inventario_corr, PDO::PARAM_INT);
             return $stmt->execute();
         }
+
+        public function botonesFuncion($inventario_corr){
+            try {
+                $this->pdo->beginTransaction();
+
+                $sql = "UPDATE mantenciones SET stock_actual = stock_actual - 1 WHERE inventario_corr = :inventario_corr";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindParam(':inventario_corr', $inventario_corr, PDO::PARAM_INT);
+                $stmt->execute();
+
+                // 2. Registra el movimiento
+                $sql = "INSERT INTO movimientos (id_inventario, tipo_movimiento, fecha_movimiento) 
+                        VALUES (:id_inventario, 5, NOW())";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->bindParam(':id_inventario', $inventario_corr, PDO::PARAM_INT);
+                $stmt->execute();
+
+                // Finaliza la transacción
+                $this->pdo->commit();
+                return true;
+
+            } catch (PDOException $e) {
+                // Si algo falla, revierte todo
+                $this->pdo->rollBack();
+                throw $e;
+            }
+        }
     }
 
 ?>

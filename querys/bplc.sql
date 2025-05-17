@@ -625,9 +625,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`usuario`, `password`, `permiso`) VALUES
-(123, 'armando', 2),
-(17107688, 'admin01', 1);
+INSERT INTO `usuario` (`usuario`,'nombre_usuario', `password`, `permiso`) VALUES
+(123, 'Armando', 'armando', 2),
+(17107688, 'Profe Milton', 'admin01', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -8,7 +8,7 @@
         }
 
         public function login($usuario, $password) {
-            $sql = "SELECT usuario,permiso, nombre FROM usuario WHERE usuario = :usuario AND password = :password";
+            $sql = "SELECT usuario,permiso, nombre_usuario FROM usuario WHERE usuario = :usuario AND password = :password";
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':usuario', $usuario);

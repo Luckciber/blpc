@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function generarMantencion($idProducto) {
     session_start();
-        $mantencionesService = new MantencionesService($pdo);
+    require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
+    $mantencionesService = new MantencionesService($pdo);
     $generar = $mantencionesService->generarMantencion(inventario_corr: $idProducto);
     require_once __DIR__.'\..\SERVICIOS\inventarioServices.php';
     $inventarioService = new InventarioService($pdo);
@@ -65,7 +66,6 @@ function generarMantencion($idProducto) {
 }
 
 function obtenerMantenciones() {
-    require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
     require_once __DIR__.'\..\SERVICIOS\mantencionesService.php';
     session_start();
     $mantencionesService = new MantencionesService($pdo);

@@ -49,8 +49,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menu Inventario:</h6>
             <a class="collapse-item" href="listaInventario.php">Lista Inventario</a>
-            <a class="collapse-item" href="stockInventario.php">Stock de Inventario</a>
-            <a class="collapse-item" href="stockProductos.php">Lista Stock Productos</a>
         </div>
     </div>
 </li>
@@ -72,8 +70,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menu Mantenciones:</h6>
             <a class="collapse-item" href="listaMantenciones.php">Lista Mantenciones</a>
-            <a class="collapse-item" href="listaMantenciones.php">Mantenciones</a>
-            <a class="collapse-item" href="repListarmantenciones.php">Lista Mantenciones</a>
         </div>
     </div>
 </ul>
