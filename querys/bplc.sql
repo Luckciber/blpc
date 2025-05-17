@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-05-2025 a las 03:37:45
+-- Tiempo de generación: 17-05-2025 a las 00:56:39
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `rut_cliente` int NOT NULL,
-  `nombre_cliente` varchar(200) DEFAULT NULL
+  `nombre_cliente` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`rut_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -142,6 +143,28 @@ INSERT INTO `cliente` (`rut_cliente`, `nombre_cliente`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_movimiento`
+--
+
+DROP TABLE IF EXISTS `estado_movimiento`;
+CREATE TABLE IF NOT EXISTS `estado_movimiento` (
+  `id` int NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `estado_movimiento`
+--
+
+INSERT INTO `estado_movimiento` (`id`, `descripcion`) VALUES
+(0, 'Sin revisión'),
+(1, 'Aprobado'),
+(2, 'Rechazado');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `inventario`
 --
 
@@ -201,7 +224,9 @@ CREATE TABLE IF NOT EXISTS `movimientos` (
   `id_inventario` int NOT NULL,
   `fecha_movimiento` date NOT NULL,
   `tipo_movimiento` int NOT NULL,
-  PRIMARY KEY (`mantencion_corr`)
+  PRIMARY KEY (`mantencion_corr`),
+  KEY `tipo_movimiento` (`tipo_movimiento`),
+  KEY `id_inventario` (`id_inventario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -374,7 +399,9 @@ CREATE TABLE IF NOT EXISTS `prestamo` (
   `fecha_prestamo_hasta` date NOT NULL,
   `inventario_corr` int NOT NULL,
   `cantidad` int NOT NULL,
-  PRIMARY KEY (`prestamo_corr`)
+  PRIMARY KEY (`prestamo_corr`),
+  KEY `inventario_corr` (`inventario_corr`),
+  KEY `rut_cliente` (`rut_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -593,19 +620,21 @@ DROP TABLE IF EXISTS `tipo_movimiento`;
 CREATE TABLE IF NOT EXISTS `tipo_movimiento` (
   `tipo_corr` int NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  PRIMARY KEY (`tipo_corr`)
+  `estado_movimiento` int NOT NULL,
+  PRIMARY KEY (`tipo_corr`),
+  KEY `estado_movimiento` (`estado_movimiento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_movimiento`
 --
 
-INSERT INTO `tipo_movimiento` (`tipo_corr`, `descripcion`) VALUES
-(1, 'Prestamo'),
-(2, 'Disponible'),
-(3, 'Mantención'),
-(4, 'No Disponible'),
-(5, 'Inutilizable');
+INSERT INTO `tipo_movimiento` (`tipo_corr`, `descripcion`, `estado_movimiento`) VALUES
+(1, 'Prestamo', 0),
+(2, 'Disponible', 0),
+(3, 'Mantención', 0),
+(4, 'No Disponible', 0),
+(5, 'Inutilizable', 0);
 
 -- --------------------------------------------------------
 
@@ -616,18 +645,44 @@ INSERT INTO `tipo_movimiento` (`tipo_corr`, `descripcion`) VALUES
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `usuario` int NOT NULL AUTO_INCREMENT,
+  `nombre_usuario` varchar(255) NOT NULL,
   `password` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `permiso` int NOT NULL,
-  PRIMARY KEY (`usuario`)
+  PRIMARY KEY (`usuario`),
+  KEY `permiso` (`permiso`),
+  KEY `permiso_2` (`permiso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17107689 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`usuario`,'nombre_usuario', `password`, `permiso`) VALUES
+INSERT INTO `usuario` (`usuario`, `nombre_usuario`, `password`, `permiso`) VALUES
 (123, 'Armando', 'armando', 2),
 (17107688, 'Profe Milton', 'admin01', 1);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`id_inventario`) REFERENCES `inventario` (`inventario_corr`),
+  ADD CONSTRAINT `movimientos_ibfk_2` FOREIGN KEY (`tipo_movimiento`) REFERENCES `tipo_movimiento` (`tipo_corr`);
+
+--
+-- Filtros para la tabla `prestamo`
+--
+ALTER TABLE `prestamo`
+  ADD CONSTRAINT `prestamo_ibfk_1` FOREIGN KEY (`rut_cliente`) REFERENCES `cliente` (`rut_cliente`);
+
+--
+-- Filtros para la tabla `tipo_movimiento`
+--
+ALTER TABLE `tipo_movimiento`
+  ADD CONSTRAINT `tipo_movimiento_ibfk_1` FOREIGN KEY (`estado_movimiento`) REFERENCES `estado_movimiento` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
