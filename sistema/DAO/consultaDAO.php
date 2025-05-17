@@ -7,7 +7,7 @@
             $this->pdo = $pdo;
         }
 
-        public function getConsulta($id_inventario) {
+        public function getConsulta() {
             /*$sql = "SELECT 
                         `mantencion_corr`, 
                         `id_inventario`, 
@@ -40,10 +40,8 @@
                     WHERE 
                         movimientos.id_inventario =inventario.inventario_corr AND
                         movimientos.tipo_movimiento = tipo_movimiento.tipo_corr AND
-                        prestamo.inventario_corr = inventario.inventario_corr  AND
-                        id_inventario = :id_inventario";
+                        prestamo.inventario_corr = inventario.inventario_corr";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindValue(':id_inventario', $id_inventario, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os resultados como um array associativo
 

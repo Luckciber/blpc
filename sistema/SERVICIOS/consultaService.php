@@ -10,8 +10,8 @@
           $this->consultaDAO = new consultaDAO($pdo);
         }
 
-        public function getConsulta($id_inventario) {
-            return $this->consultaDAO->getConsulta($id_inventario);
+        public function getConsulta() {
+            return $this->consultaDAO->getConsulta();
         }
 
         public function getConsultaById($consulta_corr) {

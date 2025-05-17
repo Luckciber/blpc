@@ -1,14 +1,17 @@
 <?php
     require_once 'sistema/BLL/consulta.php';
-    require_once 'sistema/BLL/mantenciones.php';
+    require_once 'sistema/BLL/mantenciones.php';    
+    
+    $listatipoMantencion = json_decode(listarTipoMantencion());
+    session_start();
     if(isset($_SESSION['refrescar_mantenciones'])) {
         $listaConsulta = $_SESSION['refrescar_mantenciones'];
-        print_r(json_decode($listaConsulta));
+        unset($_SESSION['refrescar_mantenciones']); // Eliminar variable de sesión
     }else{
-        $listaConsulta = obtenerConsulta(3);
-        print_r(json_decode($listaConsulta));
+        $listaConsulta = obtenerConsulta();
     }
-    $listatipoMantencion = json_decode(listarTipoMantencion());
+    //$data = getConsulta();
+    //print_r($datos);
     //$data = getConsulta();
     //print_r($datos);
 ?>
@@ -255,8 +258,8 @@
                                                     <option value="0">Todos</option>
                                                     <?php
                                                         
-                                                        foreach($listatipoMantencion as $$tipo) {
-                                                            echo '<option value="'.$tipo->tipo_corr.'">'.$$tipo->descripcion.'</option>';
+                                                        foreach($listatipoMantencion as $tipo) {
+                                                            echo '<option value="'.$tipo->tipo_corr.'">'.$tipo->descripcion.'</option>';
                                                         }
                                                         
                                                     ?>
@@ -277,7 +280,7 @@
                                         </div>
                                         <div class="button-container">
                                             <button type="submit" class="btn btn-primary" name="filtrar_tabla">Buscar</button>
-                                            <button type="button" id="limpiar" class="btn btn-secondary" onclick="limpiarDatos()">Limpiar Datos</button>
+                                            <a href='disenoConsulta1.php' type="button" id="limpiar" class="btn btn-secondary" >Limpiar Datos</a>
                                         </div>
                                     </form>
                                         <div class='row'>
@@ -298,16 +301,22 @@
                                             //es posible recorrer la lista de objetos y mostrar los datos
 
 
-                                            foreach(json_decode($listaConsulta) as $datos){
-                                                $htmlFilaTabla= "
-                                                    <tr>                                                        
-                                                        <td>".$datos->nombre_herramienta."</td>
-                                                        <td>".$datos->tipo_herramienta."</td>
-                                                        <td >".$datos->fecha_movimiento."</td>
-                                                    </tr>
-                                                ";
-                                                echo $htmlFilaTabla;
-                                            }
+$datosDecodificados = json_decode($listaConsulta);
+
+if (is_array($datosDecodificados) || $datosDecodificados instanceof Traversable) {
+    foreach ($datosDecodificados as $datos) {
+        $htmlFilaTabla = "
+            <tr>                                                        
+                <td>".$datos->nombre_herramienta."</td>
+                <td>".$datos->tipo_herramienta."</td>
+                <td>".$datos->fecha_movimiento."</td>
+            </tr>
+        ";
+        echo $htmlFilaTabla;
+    }
+} else {
+    echo "<tr><td colspan='3'>No hay datos válidos para mostrar.</td></tr>";
+}
                                         ?>
 
                                     </tbody>
